@@ -20,7 +20,6 @@ import (
 	"io"
 	"syscall"
 	"unsafe"
-	"log"
 )
 
 const (
