@@ -4,6 +4,8 @@ import (
 	"errors"
 	"io"
 	"sync"
+	"os"
+	"log"
 )
 
 var (
@@ -16,6 +18,15 @@ type InterruptError struct {
 
 func (*InterruptError) Error() string {
 	return "Interrupted"
+}
+
+var logger *log.Logger
+func init() {
+	f, err := os.OpenFile("readline.log", os.O_WRONLY|os.O_CREATE|os.O_TRUNC|os.O_APPEND, 0644)
+	if err != nil {
+		panic(err)
+	}
+	logger = log.New(f, "", log.Lshortfile)
 }
 
 type Operation struct {

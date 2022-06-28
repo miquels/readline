@@ -20,6 +20,7 @@ import (
 	"io"
 	"syscall"
 	"unsafe"
+	"log"
 )
 
 const (
@@ -43,6 +44,7 @@ var (
 	procSetConsoleMode             = kernel32.NewProc("SetConsoleMode")
 	procGetConsoleScreenBufferInfo = kernel32.NewProc("GetConsoleScreenBufferInfo")
 )
+
 
 type (
 	coord struct {
@@ -117,6 +119,9 @@ func GetSize(fd int) (width, height int, err error) {
 	if e != 0 {
 		return 0, 0, error(e)
 	}
+	logger.Printf("GetSize called")
+	logger.Printf("size.x %d, size.y %d", info.size.x, info.size.y)
+	logger.Printf("wn.top %d, wn.bot %d, wn.lft %d, wn.rgt %d", info.window.top, info.window.bottom, info.window.left, info.window.right)
 	return int(info.size.x), int(info.size.y), nil
 }
 
