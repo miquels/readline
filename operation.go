@@ -79,6 +79,7 @@ func (w *wrapWriter) Write(b []byte) (int, error) {
 
 func NewOperation(t *Terminal, cfg *Config) *Operation {
 	width, height := cfg.FuncGetSize()
+	logger.Printf("newop width %d, height %d", width, height)
 	op := &Operation{
 		t:       t,
 		buf:     NewRuneBuffer(t, cfg.Prompt, cfg, width, height),
