@@ -136,11 +136,12 @@ func (o *Operation) ioloop() {
 
 		if o.IsInPagerMode() {
 			keepInCompleteMode = o.HandlePagerMode(r)
-			if keepInCompleteMode {
-				continue
+			if r == CharEnter || r == CharCtrlJ || r == CharInterrupt {
+				o.t.KickRead()
 			}
-
-			o.buf.Refresh(nil)
+			if !keepInCompleteMode {
+				o.buf.Refresh(nil)
+			}
 			continue
 		}
 
