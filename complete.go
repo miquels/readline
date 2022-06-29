@@ -357,10 +357,6 @@ func (o *opCompleter) CompleteRefresh() {
 			// only output spaces between columns if everything fits
 			buf.Write(bytes.Repeat([]byte(" "), o.candidateColWidth - cWidth))
 		}
-		if isWindows {
-			buf.WriteString("\b")
-		}
-
 		if inSelect {
 			buf.WriteString("\033[0m")
 		}
@@ -369,6 +365,13 @@ func (o *opCompleter) CompleteRefresh() {
 		if colIdx >= o.candidateColNum {
 			lines += cLines
 			colIdx = 0
+			if isWindows {
+				// move back 1 char. Windows EOL is different to unix.
+				// windows moves cursor to next line at window edge but
+				// unix leaves it on the edge, so move back 1 char so
+				// the line counting is correct.
+				buf.WriteString("\b")
+			}
 		}
 	}
 	if colIdx > 0 {
