@@ -269,8 +269,8 @@ func (o *opCompleter) setColumnInfo() {
 		}
 	}
 
-	// -1 to avoid reaching the end of line
-	width := o.width - 1
+	// -2 to avoid end of line issues
+	width := o.width - 2
 	colNum := width / colWidth
 	if colNum != 0 {
 		colWidth += (width - (colWidth * colNum)) / colNum
