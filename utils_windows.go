@@ -38,8 +38,8 @@ func GetScreenSize() (width int, height int) {
 	logger.Printf("size.x %d, size.y %d", info.dwSize.x, info.dwSize.y)
 	logger.Printf("wn.top %d, wn.bot %d, wn.lft %d, wn.rgt %d", info.srWindow.top, info.srWindow.bottom, info.srWindow.left, info.srWindow.right)
 	//return int(info.dwSize.x), int(info.dwSize.y)
-	height = info.srWindow.bottom - info.srWindow.top + 1
-	width = info.srWindow.right - info.srWindow.left + 1
+	height = int(info.srWindow.bottom) - int(info.srWindow.top) + 1
+	width = int(info.srWindow.right) - int(info.srWindow.left) + 1
 	logger.Printf("width %d, height %d", width, height)
 	return
 }
