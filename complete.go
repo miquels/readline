@@ -433,6 +433,12 @@ func (o *opCompleter) pagerRefresh() (stayInMode bool) {
 		}
 		colIdx++
 		if colIdx >= o.candidateColNum {
+			if isWindows {
+				// move back 1 char. Windows EOL is different to unix.
+				// windows moves cursor to next line at window edge but
+				// unix leaves it on the edge, so move back 1 char.
+				buf.WriteString("\b")
+			}
 			buf.WriteString("\n")
 			lines += cLines
 			colIdx = 0
