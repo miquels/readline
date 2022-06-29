@@ -269,8 +269,8 @@ func (o *opCompleter) setColumnInfo() {
 		}
 	}
 
-	// -2 to avoid end of line issues
-	width := o.width - 2
+	// -1 to avoid end of line issues
+	width := o.width - 1
 	colNum := width / colWidth
 	if colNum != 0 {
 		colWidth += (width - (colWidth * colNum)) / colNum
@@ -356,6 +356,9 @@ func (o *opCompleter) CompleteRefresh() {
 		if o.candidateColNum >= 1 {
 			// only output spaces between columns if everything fits
 			buf.Write(bytes.Repeat([]byte(" "), o.candidateColWidth - cWidth))
+		}
+		if isWindows {
+			buf.WriteString("\b")
 		}
 
 		if inSelect {
