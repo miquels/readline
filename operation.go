@@ -93,6 +93,7 @@ func NewOperation(t *Terminal, cfg *Config) *Operation {
 	op.opPassword = newOpPassword(op)
 	op.cfg.FuncOnWidthChanged(func() {
 		newWidth, newHeight := cfg.FuncGetSize()
+		logger.Printf("sizechange width %d, height %d", newWidth, newHeight)
 		op.opCompleter.OnSizeChange(newWidth, newHeight)
 		op.opSearch.OnSizeChange(newWidth, newHeight)
 		op.buf.OnSizeChange(newWidth, newHeight)
