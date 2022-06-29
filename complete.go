@@ -334,8 +334,12 @@ func (o *opCompleter) CompleteRefresh() {
 		cWidth := sameWidth + runes.WidthAll(c)
 		cLines := 1
 		if o.width > 0 {
-			cLines = cWidth / o.width
-			if cWidth % o.width > 0 {
+			sWidth := 0
+			if isWindows && inSelect {
+				sWidth = 1 // select width
+			}
+			cLines = (cWidth + sWidth) / o.width
+			if (cWidth + sWidth) % o.width > 0 {
 				cLines++
 			}
 		}
@@ -371,9 +375,6 @@ func (o *opCompleter) CompleteRefresh() {
 				// unix leaves it on the edge, so move back 1 char so
 				// the line counting is correct.
 				buf.WriteString("\b")
-				if inSelect {
-					buf.WriteString("\b")
-				}
 			}
 		}
 	}
