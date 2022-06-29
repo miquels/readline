@@ -371,6 +371,9 @@ func (o *opCompleter) CompleteRefresh() {
 				// unix leaves it on the edge, so move back 1 char so
 				// the line counting is correct.
 				buf.WriteString("\b")
+				if inSelect {
+					buf.WriteString("\b")
+				}
 			}
 		}
 	}
