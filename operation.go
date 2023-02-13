@@ -80,6 +80,8 @@ func NewOperation(t *Terminal, cfg *Config) *Operation {
 	op.opCompleter = newOpCompleter(op.buf.w, op, width)
 	op.opPassword = newOpPassword(op)
 	op.cfg.FuncOnWidthChanged(func() {
+		op.m.Lock()
+		defer op.m.Unlock()
 		newWidth := cfg.FuncGetWidth()
 		op.opCompleter.OnWidthChange(newWidth)
 		op.opSearch.OnWidthChange(newWidth)
