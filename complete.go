@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-        "sync"
 )
 
 type AutoCompleter interface {
@@ -184,14 +183,10 @@ func (o *opCompleter) getMatrixSize() int {
 }
 
 func (o *opCompleter) OnWidthChange(newWidth int) {
-	o.m.Lock()
 	o.width = newWidth
-	o.m.Unlock()
 }
 
 func (o *opCompleter) CompleteRefresh() {
-	o.m.Lock()
-	defer o.m.Unlock()
 	if !o.inCompleteMode {
 		return
 	}
