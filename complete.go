@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+        "sync"
 )
 
 type AutoCompleter interface {
@@ -25,6 +26,7 @@ func (t *TabCompleter) Do([]rune, int) ([][]rune, int) {
 }
 
 type opCompleter struct {
+        m     sync.Mutex
 	w     io.Writer
 	op    *Operation
 	width int
@@ -182,10 +184,14 @@ func (o *opCompleter) getMatrixSize() int {
 }
 
 func (o *opCompleter) OnWidthChange(newWidth int) {
+	o.m.Lock()
 	o.width = newWidth
+	o.m.Unlock()
 }
 
 func (o *opCompleter) CompleteRefresh() {
+	o.m.Lock()
+	defer o.m.Unlock()
 	if !o.inCompleteMode {
 		return
 	}
