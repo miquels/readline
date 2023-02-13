@@ -25,7 +25,6 @@ func (t *TabCompleter) Do([]rune, int) ([][]rune, int) {
 }
 
 type opCompleter struct {
-        m     sync.Mutex
 	w     io.Writer
 	op    *Operation
 	width int
