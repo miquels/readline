@@ -137,7 +137,9 @@ func (o *Operation) ioloop() {
 		isUpdateHistory := true
 
 		if o.IsInCompleteSelectMode() {
+		        o.m.Lock()
 			keepInCompleteMode = o.HandleCompleteSelect(r)
+		        o.m.Unlock()
 			if keepInCompleteMode {
 				continue
 			}
