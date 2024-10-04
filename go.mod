@@ -1,4 +1,4 @@
-module github.com/chzyer/readline
+module github.com/miquels/readline
 
 go 1.15
 
